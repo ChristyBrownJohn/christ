@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule: 
+  - cron: "0 */10 * * *"
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+         go: [1.11, 1.12, 1.13]
+         flag: [A, B, C]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: ${{ secrets.auth }}
